@@ -20,7 +20,7 @@
       "May ma durga bless you with more than you deserve,",
       "better than you expected, and sooner than you imagined.",
       `shubho bijoya ${name}`,
-      "your's outtaleague niki."
+      "yours outtaleague niki."
     ];
   }
 
