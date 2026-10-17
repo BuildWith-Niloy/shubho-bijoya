@@ -2,9 +2,9 @@
 (() => {
   "use strict";
 
+  // Read the recipient's name from ?to=username
   const params = new URLSearchParams(window.location.search);
-  const queryRecipient = (params.get("to") || "").trim();
-  const activeRecipient = queryRecipient || "x";
+  const recipient = (params.get("to") || "").trim() || "x";
 
   const lineEls = Array.from(
     document.querySelectorAll(".typed-line")
@@ -14,6 +14,7 @@
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  // Greeting text
   function wishLines(name) {
     return [
       `Dear ${name},`,
@@ -26,16 +27,17 @@
   }
 
   const pause = ms =>
-    new Promise(resolve => window.setTimeout(resolve, ms));
+    new Promise(resolve => setTimeout(resolve, ms));
 
   async function typeWish() {
-    const lines = wishLines(activeRecipient);
+    const lines = wishLines(recipient);
 
-    if (!lineEls.length) {
-      console.error("Greeting elements were not found.");
+    if (lineEls.length === 0) {
+      console.error("Greeting elements not found in index.html");
       return;
     }
 
+    // Clear previous text
     lineEls.forEach(line => {
       const text = line.querySelector(".typed-text");
       const cursor = line.querySelector(".cursor");
@@ -44,14 +46,16 @@
       if (cursor) cursor.classList.add("hidden");
     });
 
+    // Show immediately when reduced motion is enabled
     if (reducedMotion) {
-      lineEls.forEach((line, index) => {
+      lineEls.forEach((line, i) => {
         const text = line.querySelector(".typed-text");
-        if (text) text.textContent = lines[index] || "";
+        if (text) text.textContent = lines[i] || "";
       });
       return;
     }
 
+    // Type each line
     for (let i = 0; i < lines.length && i < lineEls.length; i++) {
       const line = lineEls[i];
       const text = line.querySelector(".typed-text");
@@ -70,9 +74,10 @@
       if (cursor) cursor.classList.add("hidden");
 
       if (i + 1 < lines.length && i + 1 < lineEls.length) {
-        const nextCursor = lineEls[i + 1].querySelector(".cursor");
-        if (nextCursor) nextCursor.classList.remove("hidden");
+        const nextCursor =
+          lineEls[i + 1].querySelector(".cursor");
 
+        if (nextCursor) nextCursor.classList.remove("hidden");
         await pause(i === 1 ? 220 : 160);
       }
     }
@@ -81,59 +86,39 @@
   // Falling flower petals
   const petalLayer = document.getElementById("petalLayer");
 
-  if (petalLayer) {
-    const flowerGlyphs = ["✿", "❀", "✽", "✾", "❁"];
-    const petalColors = [
+  if (petalLayer && !reducedMotion) {
+    const flowers = ["✿", "❀", "✽", "✾", "❁"];
+    const colors = [
       "#a92e22", "#cd633b", "#d99a45",
       "#f4dfb8", "#ba4a31", "#e5b85f"
     ];
 
-    const petalCount = reducedMotion
-      ? 0
-      : window.innerWidth < 650 ? 13 : 22;
+    const count = window.innerWidth < 650 ? 13 : 22;
 
-    for (let i = 0; i < petalCount; i++) {
+    for (let i = 0; i < count; i++) {
       const petal = document.createElement("span");
 
       petal.className = "petal";
       petal.setAttribute("aria-hidden", "true");
-
       petal.textContent =
-        flowerGlyphs[Math.floor(Math.random() * flowerGlyphs.length)];
+        flowers[Math.floor(Math.random() * flowers.length)];
 
       petal.style.left = `${Math.random() * 100}%`;
+      petal.style.fontSize = `${13 + Math.random() * 17}px`;
 
       petal.style.setProperty(
         "--petal-color",
-        petalColors[Math.floor(Math.random() * petalColors.length)]
+        colors[Math.floor(Math.random() * colors.length)]
       );
-
-      petal.style.setProperty(
-        "--duration",
-        `${9 + Math.random() * 12}s`
-      );
-
-      petal.style.setProperty(
-        "--delay",
-        `${-Math.random() * 18}s`
-      );
-
-      petal.style.setProperty(
-        "--drift",
-        `${-80 + Math.random() * 160}px`
-      );
-
-      petal.style.setProperty(
-        "--petal-opacity",
-        `${0.28 + Math.random() * 0.45}`
-      );
-
-      petal.style.fontSize = `${13 + Math.random() * 17}px`;
+      petal.style.setProperty("--duration", `${9 + Math.random() * 12}s`);
+      petal.style.setProperty("--delay", `${-Math.random() * 18}s`);
+      petal.style.setProperty("--drift", `${-80 + Math.random() * 160}px`);
+      petal.style.setProperty("--petal-opacity", `${0.28 + Math.random() * 0.45}`);
 
       petalLayer.appendChild(petal);
     }
   }
 
-  // Start the greeting animation
+  // Start the animation
   typeWish();
 })();
