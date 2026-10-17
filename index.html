@@ -1,211 +1,46 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shubho Bijoya</title>
-<style>
-:root { color-scheme: light dark; }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
-  background: light-dark(#f7f0e6,#191612);
-  color: light-dark(#3d2823,#f3e7d4);
-}
-.app {
-  min-height: 100vh;
-  width: 100%;
-  display: grid;
-  place-items: center;
-  padding: 28px 18px;
-  background: light-dark(#f7f0e6,#191612);
-}
-.card {
-  width: min(100%, 560px);
-  position: relative;
-  overflow: hidden;
-  padding: 48px 30px 34px;
-  text-align: center;
-  border: 1px solid light-dark(#c8a66b,#755d3d);
-  background: light-dark(#fffaf1,#231e19);
-  box-shadow: 0 18px 55px #00000012;
-}
-.card:before,.card:after {
-  content: '✦';
-  position: absolute;
-  color: #b28a4d;
-  font-size: 22px;
-}
-.card:before { top: 16px; left: 18px; }
-.card:after { top: 16px; right: 18px; }
-.eyebrow {
-  font: 11px/1.5 Arial,sans-serif;
-  text-transform: uppercase;
-  letter-spacing: .28em;
-  color: #a17b43;
-}
-.lotus { font-size: 30px; margin: 18px 0 8px; color: #a65c48; }
-h1 {
-  font-size: clamp(35px,8vw,54px);
-  font-weight: normal;
-  line-height: 1.05;
-  margin: 0;
-  color: light-dark(#7b302c,#e6b978);
-}
-.rule { width: 58px; height: 1px; background: #b28a4d; margin: 24px auto; }
-.dear { font-size: 22px; font-style: italic; margin: 0 0 18px; }
-.message {
-  font-size: clamp(18px,4vw,22px);
-  line-height: 1.65;
-  margin: 0 auto;
-  max-width: 410px;
-}
-.signoff {
-  font-size: 22px;
-  font-style: italic;
-  margin: 24px 0 0;
-  color: light-dark(#7b302c,#e6b978);
-}
-.form { margin: 32px auto 0; max-width: 370px; font-family: Arial,sans-serif; }
-label {
-  display: block;
-  text-align: left;
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  color: light-dark(#72584d,#c8b5a0);
-}
-input {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid light-dark(#d8c6a8,#5b4b3d);
-  border-radius: 0;
-  background: light-dark(#fffdf8,#171411);
-  color: inherit;
-  font-size: 16px;
-  outline-offset: 3px;
-}
-button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 13px 16px;
-  border: 1px solid #8b3f36;
-  background: #8b3f36;
-  color: #fff8ee;
-  font-size: 12px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-button:hover { background: #71312b; }
-.hint {
-  font: 12px/1.5 Arial,sans-serif;
-  color: light-dark(#88786c,#b7a99b);
-  margin: 14px auto 0;
-  max-width: 350px;
-}
-.footer {
-  margin-top: 28px;
-  font: 10px Arial,sans-serif;
-  letter-spacing: .22em;
-  color: #a17b43;
-}
-@media (max-width: 420px) {
-  .card { padding: 42px 22px 28px; }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8d201a">
+  <meta name="description" content="A little Shubho Bijoya wish, made just for you.">
+  <title>Shubho Bijoya — a little wish for you</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-<main class="app">
-<section class="card" aria-label="Personalized Shubho Bijoya greeting">
-<div class="eyebrow">A little blessing for you</div>
-<div class="lotus">❀</div>
-<h1>Shubho<br>Bijoya</h1>
-<div class="rule"></div>
-<p class="dear" id="dear">dear x,</p>
-<p class="message">may ma durga bless you with more than you deserve, better than you expected, and sooner than you imagined.</p>
-<p class="signoff" id="signoff">shubho bijoya x,</p>
-<div class="form">
-<label for="handle">Instagram account name</label>
-<input id="handle" type="text" placeholder="e.g. ananya" autocomplete="off" maxlength="40">
-<button id="update" type="button">Personalize greeting</button>
-<button id="copy" type="button">Copy wish</button>
-<button id="share" type="button">Create personalized link</button>
-<p class="hint">Enter their Instagram handle to personalize the greeting. A link can prefill the name, but Instagram does not let a greeting page automatically detect who opened it. The page must be published online before its link works for other people.</p>
-</div>
-<div class="footer">WITH LOVE &amp; BLESSINGS</div>
-</section>
-</main>
-<script>
-const handle = document.getElementById('handle');
-const dear = document.getElementById('dear');
-const signoff = document.getElementById('signoff');
+  <main class="greeting-page">
+    <div class="petal-layer" id="petalLayer" aria-hidden="true"></div>
 
-function cleanName() {
-  return handle.value.trim().replace(/^@+/, '') || 'x';
-}
+    <section class="wish-card" aria-label="Personal Shubho Bijoya greeting">
+      <div class="top-ornament" aria-hidden="true"><span>—</span><span class="lotus">❀</span><span>—</span></div>
+      <p class="eyebrow">a little wish, made just for you</p>
 
-function personalize() {
-  const name = cleanName();
-  dear.textContent = 'dear ' + name + ',';
-  signoff.textContent = 'shubho bijoya ' + name + ',';
-}
+      <div class="typed-message" id="typedMessage" aria-live="polite" aria-label="Your Bijoya greeting">
+        <p class="typed-line salutation"><span class="typed-text"></span><span class="cursor" aria-hidden="true"></span></p>
+        <p class="typed-line divider-line"><span class="typed-text"></span><span class="cursor" aria-hidden="true"></span></p>
+        <p class="typed-line blessing"><span class="typed-text"></span><span class="cursor" aria-hidden="true"></span></p>
+        <p class="typed-line blessing"><span class="typed-text"></span><span class="cursor" aria-hidden="true"></span></p>
+        <p class="typed-line signoff"><span class="typed-text"></span><span class="cursor" aria-hidden="true"></span></p>
+        <p class="typed-line signature"><span class="typed-text"></span><span class="cursor" aria-hidden="true"></span></p>
+      </div>
 
-const params = new URLSearchParams(window.location.search);
-const recipient = params.get('to');
-
-if (recipient) {
-  handle.value = recipient.replace(/^@+/, '').slice(0, 40);
-  personalize();
-  document.querySelector('.form').style.display = 'none';
-}
-
-document.getElementById('update').addEventListener('click', personalize);
-
-handle.addEventListener('input', personalize);
-
-document.getElementById('share').addEventListener('click', async () => {
-  personalize();
-  const url = new URL(window.location.href);
-  url.searchParams.set('to', cleanName());
-  const button = document.getElementById('share');
-
-  try {
-    await navigator.clipboard.writeText(url.toString());
-    button.textContent = 'Link copied';
-  } catch (e) {
-    window.prompt('Copy this personalized link:', url.toString());
-  }
-});
-
-document.getElementById('copy').addEventListener('click', async () => {
-  personalize();
-  const name = cleanName();
-
-  const wish = `dear ${name},
-may ma durga bless you with more than you deserve, better than you expected, and sooner than you imagined.
-shubho bijoya ${name},`;
-
-  const button = document.getElementById('copy');
-
-  try {
-    await navigator.clipboard.writeText(wish);
-    button.textContent = 'Wish copied';
-  } catch (e) {
-    const area = document.createElement('textarea');
-    area.value = wish;
-    document.body.appendChild(area);
-    area.select();
-    document.execCommand('copy');
-    area.remove();
-    button.textContent = 'Wish copied';
-  }
-
-  setTimeout(() => button.textContent = 'Copy wish', 1800);
-});
-</script>
+      <div class="control-panel" id="controlPanel">
+        <label class="sr-only" for="recipientName">Recipient name</label>
+        <input id="recipientName" type="text" maxlength="60" autocomplete="off" placeholder="Recipient name" aria-label="Recipient name">
+        <button class="primary-button" id="createLink" type="button"><span aria-hidden="true">↗</span> Create Personal Link</button>
+        <button class="secondary-button" id="copyWish" type="button"><span aria-hidden="true">▢</span> Copy Wish</button>
+        <p class="status-message" id="statusMessage" role="status" aria-live="polite"></p>
+      </div>
+      <div class="bottom-ornament" aria-hidden="true"><span>✧</span> share a little joy <span>♡</span></div>
+    </section>
+    <span class="corner-flower flower-one" aria-hidden="true">✿</span>
+    <span class="corner-flower flower-two" aria-hidden="true">❀</span>
+    <span class="corner-flower flower-three" aria-hidden="true">✽</span>
+  </main>
 </body>
 </html>
