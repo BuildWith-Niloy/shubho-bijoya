@@ -169,3 +169,27 @@ button { -webkit-tap-highlight-color: transparent; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .petal { display: none; }
 }
+
+/* Greeting visibility fix */
+#typedMessage {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 200px;
+}
+
+#typedMessage .typed-line {
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 1em;
+}
+
+#typedMessage .typed-text {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#typedMessage .cursor.hidden {
+  display: none !important;
+}
+
