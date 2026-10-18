@@ -192,4 +192,14 @@ button { -webkit-tap-highlight-color: transparent; }
 #typedMessage .cursor.hidden {
   display: none !important;
 }
+/* Instagram link in the greeting */
+.typed-text a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
 
+.typed-text a:hover {
+  opacity: 0.75;
+}
