@@ -1,6 +1,9 @@
-
 (() => {
   "use strict";
+
+  // Your Instagram handle and profile link
+  const INSTA_HANDLE = "outtaleague_niki";
+  const INSTA_URL = "https://www.instagram.com/outtaleague_niki/";
 
   // Read the recipient's name from ?to=username
   const params = new URLSearchParams(window.location.search);
@@ -22,7 +25,7 @@
       "May ma durga bless you with more than you deserve,",
       "better than you expected, and sooner than you imagined.",
       `shubho bijoya ${name}`,
-      "yours outtaleague niki."
+      `yours ${INSTA_HANDLE}.`
     ];
   }
 
@@ -83,6 +86,30 @@
     }
   }
 
+  // Turn the Instagram handle into a clickable link
+  function linkifyHandle() {
+    lineEls.forEach(line => {
+      const text = line.querySelector(".typed-text");
+      if (!text) return;
+
+      const content = text.textContent;
+      const start = content.indexOf(INSTA_HANDLE);
+      if (start === -1) return;
+
+      const before = content.slice(0, start);
+      const after = content.slice(start + INSTA_HANDLE.length);
+
+      const link = document.createElement("a");
+      link.href = INSTA_URL;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = INSTA_HANDLE;
+
+      text.textContent = "";
+      text.append(before, link, after);
+    });
+  }
+
   // Falling flower petals
   const petalLayer = document.getElementById("petalLayer");
 
@@ -119,6 +146,6 @@
     }
   }
 
-  // Start the animation
-  typeWish();
+  // Start the animation, then add the link
+  typeWish().then(linkifyHandle);
 })();
