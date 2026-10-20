@@ -79,11 +79,16 @@
     positionEyeLayer();
     window.addEventListener("resize", positionEyeLayer);
 
-    const blink = () => {
-      eyeLayer.classList.add("blinking");
-      window.setTimeout(() => eyeLayer.classList.remove("blinking"), 190);
-      window.setTimeout(blink, 3200 + Math.random() * 2400);
-    };
+   const blink = () => {
+  eyeLayer.classList.add("blinking");
+  window.setTimeout(() => eyeLayer.classList.remove("blinking"), 190);
+
+  const wait = Math.random() < 0.12
+    ? 300
+    : 2500 + Math.random() * 3500;
+
+  window.setTimeout(blink, wait);
+};
 
     window.setTimeout(blink, 2500 + Math.random() * 1800);
   }
