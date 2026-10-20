@@ -98,8 +98,8 @@
     return [
       `Dear ${name},`,
       "— ❀ —",
-      "Dehi Saubhagyam, Arogyam Dehi Me Paramam Sukham,Roopam Dehi, Jayam Dehi, Yasho Dehi, Dwisho Jahi.",
-      "May ma durga bless you with more than you deserve, better than you expected, and sooner than you imagined.",
+      "Dehi Saubhagyam, Arogyam, Dehi Me Paramam Sukham,Roopam Dehi, Jayam Dehi, Yasho Dehi, Dwisho Jahi.",
+      "May Ma Durga bless you with more than you deserve, better than you anticipated, and sooner than you imagined.",
     
       `shubho bijoya ${name}`,
       `yours ${INSTA_HANDLE}.`
