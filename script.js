@@ -85,7 +85,7 @@
 
   const wait = Math.random() < 0.12
     ? 300
-    : 2500 + Math.random() * 3500;
+    : 1500 + Math.random() * 2000;
 
   window.setTimeout(blink, wait);
 };
