@@ -17,6 +17,77 @@
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  // Keep the blinking eyes lined up with the existing background illustration.
+  const eyeLayer = document.getElementById("eyeBlinkLayer");
+  const greetingPage = document.querySelector(".greeting-page");
+
+  function positionEyeLayer() {
+    if (!eyeLayer || !greetingPage) return;
+
+    const bounds = greetingPage.getBoundingClientRect();
+    const styles = window.getComputedStyle(greetingPage);
+    const imageWidth = 1536;
+    const imageHeight = 1024;
+    const backgroundSize = styles.backgroundSize.split(",").pop().trim();
+    const sizeParts = backgroundSize.split(/\s+/);
+    let width;
+    let height;
+
+    if (backgroundSize === "cover" || backgroundSize === "contain") {
+      const scale = backgroundSize === "cover"
+        ? Math.max(bounds.width / imageWidth, bounds.height / imageHeight)
+        : Math.min(bounds.width / imageWidth, bounds.height / imageHeight);
+      width = imageWidth * scale;
+      height = imageHeight * scale;
+    } else {
+      const sizeValue = value => value === "auto" ? null : Number.parseFloat(value);
+      const specifiedWidth = sizeValue(sizeParts[0]);
+      const specifiedHeight = sizeValue(sizeParts[1]);
+
+      if (specifiedWidth !== null && specifiedHeight !== null) {
+        width = specifiedWidth;
+        height = specifiedHeight;
+      } else if (specifiedWidth !== null) {
+        width = specifiedWidth;
+        height = imageHeight * (width / imageWidth);
+      } else if (specifiedHeight !== null) {
+        height = specifiedHeight;
+        width = imageWidth * (height / imageHeight);
+      } else {
+        width = imageWidth;
+        height = imageHeight;
+      }
+    }
+
+    const positionParts = styles.backgroundPosition.split(",").pop().trim().split(/\s+/);
+    const offset = (value, freeSpace) => {
+      if (value === "center") return freeSpace / 2;
+      if (value === "right" || value === "bottom") return freeSpace;
+      if (value === "left" || value === "top") return 0;
+      return value.endsWith("%")
+        ? freeSpace * (Number.parseFloat(value) / 100)
+        : Number.parseFloat(value) || 0;
+    };
+
+    eyeLayer.style.left = `${offset(positionParts[0], bounds.width - width)}px`;
+    eyeLayer.style.top = `${offset(positionParts[1] || "50%", bounds.height - height)}px`;
+    eyeLayer.style.width = `${width}px`;
+    eyeLayer.style.height = `${height}px`;
+  }
+
+  if (eyeLayer && !reducedMotion) {
+    positionEyeLayer();
+    window.addEventListener("resize", positionEyeLayer);
+
+    const blink = () => {
+      eyeLayer.classList.add("blinking");
+      window.setTimeout(() => eyeLayer.classList.remove("blinking"), 190);
+      window.setTimeout(blink, 3200 + Math.random() * 2400);
+    };
+
+    window.setTimeout(blink, 2500 + Math.random() * 1800);
+  }
+
   // Greeting text
   function wishLines(name) {
     return [

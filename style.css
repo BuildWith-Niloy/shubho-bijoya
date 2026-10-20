@@ -114,6 +114,13 @@ button { -webkit-tap-highlight-color: transparent; }
 .bottom-ornament span { padding: 0 0.32rem; color: var(--vermilion); }
 
 .petal-layer { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.eye-blink-layer { position: absolute; z-index: 1; overflow: hidden; pointer-events: none; }
+.blink-mask { opacity: 0; }
+.closed-eye { fill: #f0c9a5; stroke: none; }
+.closed-eye.boy-eye { fill: #f0c9a5; }
+.closed-lid { fill: none; stroke: #493026; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.boy-lid { stroke-width: 2.2; }
+.eye-blink-layer.blinking .blink-mask { animation: eye-blink 180ms ease-in-out both; }
 .petal { position: absolute; top: -12vh; display: block; opacity: 0; color: var(--petal-color, #be4228); font-family: Georgia, serif; line-height: 1; text-shadow: 0 1px 2px rgba(120, 43, 23, 0.12); animation: petal-fall var(--duration, 12s) linear var(--delay, 0s) infinite; will-change: transform; }
 .corner-flower { position: absolute; z-index: 1; color: rgba(157, 43, 32, 0.63); pointer-events: none; animation: gentle-float 5s ease-in-out infinite; }
 .flower-one { top: 8%; right: 49%; font-size: clamp(1rem, 2vw, 2rem); }
@@ -122,6 +129,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 @keyframes blink { 50% { opacity: 0; } }
+@keyframes eye-blink { 0%, 20%, 100% { opacity: 0; } 38%, 76% { opacity: 1; } }
 @keyframes card-arrive { from { opacity: 0; transform: translateY(15px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes gentle-float { 0%, 100% { transform: translateY(0) rotate(-7deg); } 50% { transform: translateY(-12px) rotate(9deg); } }
 @keyframes petal-fall {
